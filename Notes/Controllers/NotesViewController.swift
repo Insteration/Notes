@@ -17,6 +17,18 @@ class NotesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let frameTextView = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: self.view.bounds.height / 2)
+        self.noteTextView.frame = frameTextView
+        
+        
+
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(param:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(param:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        setUpToolbar()
+        
+        
         switch notes?.numberOfNote {
         case 0:
             self.noteTextView.text = notesData.testNote1
@@ -40,14 +52,39 @@ class NotesViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.noteTextView.resignFirstResponder()
+    }
     
+    private func setUpToolbar() {
+        
+        var toolBarItems = [UIBarButtonItem]()
+        
+        let systemButton1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.bookmarks, target: nil, action: nil)
+        toolBarItems.append(systemButton1)
+        
+        let systemButton2 = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        toolBarItems.append(systemButton2)
+        
+        let systemButton3 = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: nil, action: nil)
+        toolBarItems.append(systemButton3)
+        
+        self.setToolbarItems(toolBarItems, animated: true)
+        self.navigationController?.isToolbarHidden = false
+    }
+    
+    @objc func updateTextView(param: Notification) {
+        let userInfo = param.userInfo
+        let getKeyboardRect = (userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue    // координаты клавиатуры
+        let keyBoardFrame = self.view.convert(getKeyboardRect, to: view.window) // конвертирует в координаты на вьюшке (сделали фрейм исходя из координаты клавиатуры)
+        if param.name == UIResponder.keyboardWillHideNotification {
+            self.noteTextView.contentInset = UIEdgeInsets.zero // по углам
+        } else {
+            self.noteTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyBoardFrame.height, right: 0)
+            self.noteTextView.scrollIndicatorInsets = self.noteTextView.contentInset
+        }
+        self.noteTextView.scrollRangeToVisible(self.noteTextView.selectedRange)
+    }
+    
+
 }

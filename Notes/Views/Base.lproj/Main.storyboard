@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A7m-F3-JRa">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,15 +15,15 @@
             <objects>
                 <tableViewController id="4VW-9p-Irv" customClass="FoldersTableTableViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Uzg-pw-nhc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="VGh-3p-HeT">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VGh-3p-HeT" id="cKY-zM-EEV">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -48,32 +48,27 @@
             <objects>
                 <viewController storyboardIdentifier="notesVC" id="m0t-1F-zBo" customClass="NotesViewController" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iiW-ks-eCK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7Pb-KH-kbw">
-                                <rect key="frame" x="16" y="64" width="343" height="559"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Pb-KH-kbw">
+                                <rect key="frame" x="16" y="64" width="288" height="460"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7Pb-KH-kbw" firstAttribute="leading" secondItem="iiW-ks-eCK" secondAttribute="leadingMargin" id="5ZA-c4-gTf"/>
+                            <constraint firstItem="7Pb-KH-kbw" firstAttribute="bottom" secondItem="Tft-2h-rAh" secondAttribute="bottom" id="ifn-v9-EEc"/>
+                            <constraint firstItem="7Pb-KH-kbw" firstAttribute="trailing" secondItem="iiW-ks-eCK" secondAttribute="trailingMargin" id="khz-0Y-jbU"/>
+                            <constraint firstItem="7Pb-KH-kbw" firstAttribute="top" secondItem="Tft-2h-rAh" secondAttribute="top" id="pve-RK-JX3"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Tft-2h-rAh"/>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="tdn-EM-lPr"/>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="QTO-gz-mxH"/>
-                        <barButtonItem title="Item" id="5n6-jv-IRk"/>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="jBr-qE-36X"/>
-                        <barButtonItem title="Item" id="hDB-7a-Mlf"/>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="oNy-fr-jCJ"/>
-                        <barButtonItem title="Item" id="PnN-Wm-68w"/>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="bni-8i-ZwX"/>
-                        <barButtonItem title="Item" id="Mej-1x-A16"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="OcR-RO-gEg">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="mSb-Nd-d8E">
                             <connections>
@@ -93,7 +88,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WV7-JU-MHQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3164" y="-564.46776611694156"/>
+            <point key="canvasLocation" x="3163.125" y="-565.14084507042253"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kis-lW-oTH">
@@ -101,7 +96,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="A7m-F3-JRa" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="edf-nP-bjY">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -119,7 +114,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="beO-0P-fka" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EZ4-v7-rcy">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
