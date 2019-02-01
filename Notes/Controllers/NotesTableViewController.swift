@@ -62,7 +62,7 @@ class NotesTableTableViewController: UITableViewController {
     }
     
     func alertNil() {
-        let alert = UIAlertController(title: "Alert", message: "Note name cann't be empty", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Something went wrong", message: "The note name can not be empty", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             }))
         self.present(alert, animated: true, completion: nil)
@@ -144,10 +144,19 @@ class NotesTableTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == .delete) {
-            // handle delete (by removing the data from your array and updating the tableview)
+        if editingStyle == .delete {
+            notes.notesList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
+    
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if (editingStyle == .delete) {
+//            // handle delete (by removing the data from your array and updating the tableview)
+//        }
+//    }
     
     
     @IBAction func startNewText(_ sender: UIBarButtonItem) {
