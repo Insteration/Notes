@@ -11,9 +11,10 @@
 		D9014B602201A2CD0072CEF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9014B5E2201A2CD0072CEF9 /* Main.storyboard */; };
 		D9014B622201A2CF0072CEF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9014B612201A2CF0072CEF9 /* Assets.xcassets */; };
 		D9014B652201A2CF0072CEF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9014B632201A2CF0072CEF9 /* LaunchScreen.storyboard */; };
-		D9014B712201A8B00072CEF9 /* FoldersTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9014B702201A8B00072CEF9 /* FoldersTableTableViewController.swift */; };
+		D9014B712201A8B00072CEF9 /* NotesTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9014B702201A8B00072CEF9 /* NotesTableTableViewController.swift */; };
 		D9014B782201ADAA0072CEF9 /* NotesListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9014B772201ADAA0072CEF9 /* NotesListData.swift */; };
-		D9014B7A2201ED860072CEF9 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9014B792201ED860072CEF9 /* NotesViewController.swift */; };
+		D9014B7A2201ED860072CEF9 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9014B792201ED860072CEF9 /* TextViewController.swift */; };
+		D90ACE1F2204555C0066BF0A /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90ACE1E2204555C0066BF0A /* SettingsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,9 +24,10 @@
 		D9014B612201A2CF0072CEF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9014B642201A2CF0072CEF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D9014B662201A2CF0072CEF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D9014B702201A8B00072CEF9 /* FoldersTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersTableTableViewController.swift; sourceTree = "<group>"; };
+		D9014B702201A8B00072CEF9 /* NotesTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableTableViewController.swift; sourceTree = "<group>"; };
 		D9014B772201ADAA0072CEF9 /* NotesListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesListData.swift; sourceTree = "<group>"; };
-		D9014B792201ED860072CEF9 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		D9014B792201ED860072CEF9 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		D90ACE1E2204555C0066BF0A /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +80,9 @@
 		D9014B6D2201A35B0072CEF9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D9014B702201A8B00072CEF9 /* FoldersTableTableViewController.swift */,
-				D9014B792201ED860072CEF9 /* NotesViewController.swift */,
+				D9014B702201A8B00072CEF9 /* NotesTableTableViewController.swift */,
+				D9014B792201ED860072CEF9 /* TextViewController.swift */,
+				D90ACE1E2204555C0066BF0A /* SettingsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -181,8 +184,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9014B712201A8B00072CEF9 /* FoldersTableTableViewController.swift in Sources */,
-				D9014B7A2201ED860072CEF9 /* NotesViewController.swift in Sources */,
+				D9014B712201A8B00072CEF9 /* NotesTableTableViewController.swift in Sources */,
+				D90ACE1F2204555C0066BF0A /* SettingsTableViewController.swift in Sources */,
+				D9014B7A2201ED860072CEF9 /* TextViewController.swift in Sources */,
 				D9014B782201ADAA0072CEF9 /* NotesListData.swift in Sources */,
 				D9014B5B2201A2CD0072CEF9 /* AppDelegate.swift in Sources */,
 			);

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FoldersTableTableViewController: UITableViewController {
+class NotesTableTableViewController: UITableViewController {
     
     var notes = Notes()
     
@@ -88,7 +88,7 @@ class FoldersTableTableViewController: UITableViewController {
     
     fileprivate func teleportToNotesViewController() {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let notesViewController = storyboard.instantiateViewController(withIdentifier: "notesVC") as! NotesViewController
+        let notesViewController = storyboard.instantiateViewController(withIdentifier: "notesVC") as! TextViewController
         notesViewController.notes = notes
         let navigationController = UINavigationController(rootViewController: notesViewController)
         self.present(navigationController, animated: true, completion: nil)

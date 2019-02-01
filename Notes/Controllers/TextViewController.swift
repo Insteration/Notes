@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotesViewController: UIViewController {
+class TextViewController: UIViewController {
     
     var notes: Notes?
     var notesData = NotesData()
