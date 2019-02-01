@@ -36,6 +36,8 @@ class TextViewController: UIViewController {
             self.noteTextView.text = notesData.testNote2
         case 2:
             self.noteTextView.text = notesData.testNote3
+        case 100:
+            ()
         default:
             ()
         }
