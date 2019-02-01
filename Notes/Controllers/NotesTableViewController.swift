@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotesTableTableViewController: UITableViewController {
+class NotesTableViewController: UITableViewController {
     
     var notes = Notes()
     
@@ -120,7 +120,7 @@ class NotesTableTableViewController: UITableViewController {
         let systemButton2 = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         toolBarItems.append(systemButton2)
         
-        let systemButton3 = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addNewNote(target:)))
+        let systemButton3 = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.compose, target: self, action: #selector(addNewNote(target:)))
         toolBarItems.append(systemButton3)
         
         self.setToolbarItems(toolBarItems, animated: true)
@@ -128,13 +128,11 @@ class NotesTableTableViewController: UITableViewController {
     }
     
     @objc func addNewNote(target: UITableViewCell) {
-        alertController()
         
-        print("Add")
         
-        //        foldersTableView.beginUpdates()
-        //        foldersTableView.insertRows(at: [IndexPath(row: self.notes.notesList.count-1, section: 1)], with: .automatic)
-        //        foldersTableView.endUpdates()
+        
+        
+
     }
     
     @objc func reloadData(target: UITableViewCell) {
@@ -154,6 +152,10 @@ class NotesTableTableViewController: UITableViewController {
         }
     }
     
+    
+    @IBAction func addNewNote(_ sender: UIBarButtonItem) {
+        alertController()
+    }
     
     /*
      // Override to support conditional editing of the table view.
