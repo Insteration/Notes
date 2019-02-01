@@ -26,7 +26,7 @@ class NotesViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(param:)), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextView(param:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        setUpToolbar()
+//        setUpToolbar()
         
         
         switch notes?.numberOfNote {
@@ -55,6 +55,8 @@ class NotesViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.noteTextView.resignFirstResponder()
     }
+    
+    
     
     private func setUpToolbar() {
         
