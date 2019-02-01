@@ -61,24 +61,34 @@ class NotesTableTableViewController: UITableViewController {
         return "Notes"
     }
     
-    func alertController() {
+    func alertNil() {
+        let alert = UIAlertController(title: "Alert", message: "Note name cann't be empty", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    fileprivate func alertController() {
         let alertController = UIAlertController(title: "Add new note", message: "", preferredStyle: .alert)
         
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Enter note name"
         }
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
-            let firstSecondField = alertController.textFields![0] as UITextField
-            self.notes.notesList.insert(firstSecondField.text!, at: 0)
-            let indexPath = NSIndexPath(row: 0, section: 0)
-            self.tableView.insertRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade)
+            let noteName = alertController.textFields![0] as UITextField
+            
+            if noteName.text == "" {
+                print("Cannt be a nil!!!")
+                self.alertNil()
+            } else {
+                self.notes.notesList.insert(noteName.text!, at: 0)
+                let indexPath = NSIndexPath(row: 0, section: 0)
+                self.tableView.insertRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade)
+            }
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (action : UIAlertAction!) -> Void in })
-//        alertController.addTextField { (textField : UITextField!) -> Void in
-//            textField.placeholder = "Type tags"
-//        }
-        
+
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
         
@@ -128,9 +138,20 @@ class NotesTableTableViewController: UITableViewController {
     }
     
     @objc func reloadData(target: UITableViewCell) {
-                            self.foldersTableView.beginUpdates()
-//                            foldersTableView.insertRows(at: [IndexPath(row: self.notes.notesList.count-1, section: 1)], with: .automatic)
-                            self.foldersTableView.endUpdates()
+        self.foldersTableView.beginUpdates()
+        //                            foldersTableView.insertRows(at: [IndexPath(row: self.notes.notesList.count-1, section: 1)], with: .automatic)
+        self.foldersTableView.endUpdates()
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        print("can edit Row At")
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+        }
     }
     
     
