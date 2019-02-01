@@ -78,7 +78,6 @@ class NotesTableTableViewController: UITableViewController {
             let noteName = alertController.textFields![0] as UITextField
             
             if noteName.text == "" {
-                print("Cannt be a nil!!!")
                 self.alertNil()
             } else {
                 self.notes.notesList.insert(noteName.text!, at: 0)
