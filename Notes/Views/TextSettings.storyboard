@@ -37,7 +37,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="OcR-RO-gEg">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="mSb-Nd-d8E">
+                        <barButtonItem key="leftBarButtonItem" systemItem="reply" id="mSb-Nd-d8E">
                             <connections>
                                 <action selector="backToNotesListButton:" destination="m0t-1F-zBo" id="Qgq-dg-giW"/>
                             </connections>
