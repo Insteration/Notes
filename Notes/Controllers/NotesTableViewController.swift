@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotesTableTableViewController: UITableViewController {
+class NotesTableViewController: UITableViewController {
     
     var notes = Notes()
     
@@ -19,8 +19,17 @@ class NotesTableTableViewController: UITableViewController {
     
     @IBOutlet var foldersTableView: UITableView!
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.reloadData()
+
+        
         setUpToolbar()
         self.foldersTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         // Uncomment the following line to preserve selection between presentations
@@ -69,6 +78,8 @@ class NotesTableTableViewController: UITableViewController {
     }
     
     fileprivate func alertController() {
+        
+        
         let alertController = UIAlertController(title: "Add new note", message: "", preferredStyle: .alert)
         
         alertController.addTextField { (textField : UITextField!) -> Void in
@@ -149,6 +160,15 @@ class NotesTableTableViewController: UITableViewController {
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
+    }
+    
+    func updateCell() {
+        let indexPath = NSIndexPath(row: notes.notesList.count, section: 0)
+        
+        self.tableView.reloadRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade)
+//        tableView.beginUpdates()
+//        tableView.reloadRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade) //try other animations
+//        tableView.endUpdates()
     }
     
 //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

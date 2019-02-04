@@ -10,7 +10,7 @@ import UIKit
 
 class TextViewController: UIViewController {
     
-    var notes: Notes?
+    var notes = Notes()
     var notesData = NotesData()
 
     
@@ -29,7 +29,7 @@ class TextViewController: UIViewController {
 //        setUpToolbar()
         
         
-        switch notes?.numberOfNote {
+        switch notes.numberOfNote {
         case 0:
             self.noteTextView.text = notesData.testNote1
         case 1:
@@ -37,7 +37,10 @@ class TextViewController: UIViewController {
         case 2:
             self.noteTextView.text = notesData.testNote3
         case 100:
-            ()
+//            self.notes.notesList.insert(noteName.text!, at: 0)
+            notes.notesList.insert("New Note", at: 0)
+            self.noteTextView.text = ""
+            print(notes.notesList)
         default:
             ()
         }
@@ -51,6 +54,11 @@ class TextViewController: UIViewController {
 
     }
     @IBAction func backToNotesListButton(_ sender: UIBarButtonItem) {
+//        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let notesViewController = storyboard.instantiateViewController(withIdentifier: "mainVC") as! NotesTableViewController
+//        notesViewController.notes = notes
+////        let navigationController = UITableViewController(rootViewController: notesViewController)
+//        self.present(notesViewController, animated: true, completion: nil)
         dismiss(animated: true, completion: nil)
     }
     
