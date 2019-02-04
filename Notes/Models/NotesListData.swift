@@ -11,15 +11,14 @@ import Foundation
 
 class Notes {
     var list = [
-        Lists(name: "Shakespeare - Hamlet"),
-        Lists(name: "shopping list for tomorrow"),
+        Lists(name: "Hamlet"),
+        Lists(name: "Shopping list for tomorrow"),
         Lists(name: "My thoughts")
     ]
-    
-    
-    var notesList = ["Shakespeare - Hamlet", "shopping list for tomorrow", "My thoughts"]
     var filteredList = ""
     var numberOfNote = 0
+    
+    
 }
 
 class NotesData {

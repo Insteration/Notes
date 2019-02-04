@@ -39,9 +39,8 @@ class TextViewController: UIViewController {
         case 100:
 //            self.notes.notesList.insert(noteName.text!, at: 0)
             self.notes.list.insert(Lists(name: "New note"), at: 0)
-            notes.notesList.insert("New Note", at: 0)
+            
             self.noteTextView.text = ""
-            print(notes.notesList)
         default:
             ()
         }
