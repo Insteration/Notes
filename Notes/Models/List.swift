@@ -9,10 +9,15 @@
 import Foundation
 
 class Lists {
-    let category: String = "Notes"
+    var category: String = "Notes"
     var name: String
     
     init(name: String) {
+        self.name = name
+    }
+    
+    init(category: String, name: String) {
+        self.category = category
         self.name = name
     }
 }

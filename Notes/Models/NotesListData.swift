@@ -13,9 +13,10 @@ class Notes {
     var list = [
         Lists(name: "Hamlet"),
         Lists(name: "Shopping list for tomorrow"),
-        Lists(name: "My thoughts")
+        Lists(name: "My thoughts"),
+        Lists(category: "Other", name: "Other")
     ]
-    var filteredList = ""
+//    var filteredList = ""
     var numberOfNote = 0
     
     

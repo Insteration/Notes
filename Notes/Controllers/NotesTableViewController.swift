@@ -32,7 +32,10 @@ class NotesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        searchController.searchBar.scopeButtonTitles = ["All", "Notes"]
+        searchController.searchBar.delegate = self
+        
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Notes"
@@ -55,12 +58,12 @@ class NotesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            if isFiltering() {
-                return filteredNotes.count
-            }
-            
-        return self.notes.list.count
+        if isFiltering() {
+            return filteredNotes.count
         }
+        
+        return self.notes.list.count
+    }
     
     
     
@@ -74,7 +77,7 @@ class NotesTableViewController: UITableViewController {
         } else {
             myNote = self.notes.list[indexPath.row]
         }
-//        cell.textLabel?.text = self.notes.notesList[indexPath.row]
+        //        cell.textLabel?.text = self.notes.notesList[indexPath.row]
         cell.textLabel?.text = self.notes.list[indexPath.row].name
         cell.selectionStyle = .gray
         cell.accessoryType = .disclosureIndicator
@@ -102,14 +105,14 @@ class NotesTableViewController: UITableViewController {
             textField.placeholder = "Enter note name"
         }
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
-
+            
             let noteName = alertController.textFields![0] as UITextField
-
+            
             if noteName.text == "" {
                 self.alertNil()
             } else {
                 self.notes.list.insert(Lists(name: noteName.text!), at: 0)
-
+                
                 let indexPath = NSIndexPath(row: 0, section: 0)
                 self.tableView.insertRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade)
             }
@@ -177,36 +180,59 @@ class NotesTableViewController: UITableViewController {
         let indexPath = NSIndexPath(row: self.notes.list.count, section: 0)
         self.tableView.reloadRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade)
     }
-
+    
     
     @IBAction func startNewText(_ sender: UIBarButtonItem) {
         notes.numberOfNote = 100
         teleportToNotesViewController()
     }
- 
+    
     func searchBarIsEmpty() -> Bool {
         // Returns true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredNotes = self.notes.list.filter({( note : Lists) -> Bool in
-            return note.name.lowercased().contains(searchText.lowercased())
-//            return note.filteredList.lowercased().contains(searchText.lowercased())
+        
+        filteredNotes = self.notes.list.filter({( name : Lists) -> Bool in
+            let doesCategoryMatch = (scope == "All") || (name.category == scope)
+            
+            if searchBarIsEmpty() {
+                return doesCategoryMatch
+            } else {
+                return doesCategoryMatch && name.name.lowercased().contains(searchText.lowercased())
+            }
         })
+        
+//
+//        filteredNotes = self.notes.list.filter (
+//            {   ( name : Lists) -> Bool in
+//                return name.name.lowercased().contains(searchText.lowercased() )
+//        })
+//
         tableView.reloadData()
     }
     
     func isFiltering() -> Bool {
-        return searchController.isActive && !searchBarIsEmpty()
+        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
+        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+//        return searchController.isActive && !searchBarIsEmpty()
     }
     
 }
 
 
 extension NotesTableViewController: UISearchResultsUpdating {
-    // MARK: - UISearchResultsUpdating Delegate
     func updateSearchResults(for searchController: UISearchController) {
-        filterContentForSearchText(searchController.searchBar.text!)
+        let searchBar = searchController.searchBar
+        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        filterContentForSearchText(searchController.searchBar.text!, scope: scope)
+    }
+}
+
+extension NotesTableViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
 }
