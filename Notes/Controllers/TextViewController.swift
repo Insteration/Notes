@@ -38,14 +38,16 @@ class TextViewController: UIViewController {
             self.noteTextView.text = notesData.testNote3
         case 100:
 //            self.notes.notesList.insert(noteName.text!, at: 0)
+            self.notes.list.insert(Lists(name: "New note"), at: 0)
             notes.notesList.insert("New Note", at: 0)
             self.noteTextView.text = ""
             print(notes.notesList)
         default:
             ()
         }
-
-        // Do any additional setup after loading the view.
+        
+        noteTextView.delegate = self
+        
     }
     
     @IBOutlet weak var noteTextView: UITextView!
@@ -99,4 +101,10 @@ class TextViewController: UIViewController {
     }
     
 
+}
+
+extension TextViewController: UITextViewDelegate {
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        print("Text view did begin editing")
+    }
 }

@@ -10,11 +10,15 @@ import UIKit
 
 class NotesTableViewController: UITableViewController {
     
-    var notes = Notes()
+    //    var note = [Notes]()
     
+    
+    var notes = Notes()
+    var filteredNotes = [Notes]()
+    
+    let searchController = UISearchController(searchResultsController: nil)
     
     private let cellReuseIdentifier = "cell"
-    
     
     
     @IBOutlet var foldersTableView: UITableView!
@@ -22,13 +26,19 @@ class NotesTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.reloadData()
-
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Notes"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        
         
         setUpToolbar()
         self.foldersTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
@@ -41,6 +51,7 @@ class NotesTableViewController: UITableViewController {
         foldersTableView.separatorStyle = .none
         foldersTableView.delegate = self
         foldersTableView.dataSource = self
+        
     }
     
     // MARK: - Table view data source
@@ -51,15 +62,28 @@ class NotesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return self.notes.notesList.count
-    }
+            if isFiltering() {
+                return filteredNotes.count
+            }
+            
+//            return self.notes.notesList.count
+        return self.notes.list.count
+        }
+    
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = self.foldersTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
         
-        cell.textLabel?.text = self.notes.notesList[indexPath.row]
+//        let myNote: Lists
+        
+//        if isFiltering() {
+//            myNote = filteredNotes[indexPath.row]
+//        } else {
+//            myNote = self.notes.list[indexPath.row]
+//        }
+//        cell.textLabel?.text = self.notes.notesList[indexPath.row]
+        cell.textLabel?.text = self.notes.list[indexPath.row].name
         cell.selectionStyle = .gray
         cell.accessoryType = .disclosureIndicator
         
@@ -73,7 +97,7 @@ class NotesTableViewController: UITableViewController {
     func alertNil() {
         let alert = UIAlertController(title: "Something went wrong", message: "The note name can not be empty", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            }))
+        }))
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -86,19 +110,22 @@ class NotesTableViewController: UITableViewController {
             textField.placeholder = "Enter note name"
         }
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+
             let noteName = alertController.textFields![0] as UITextField
-            
+
             if noteName.text == "" {
                 self.alertNil()
             } else {
-                self.notes.notesList.insert(noteName.text!, at: 0)
+                self.notes.list.insert(Lists(name: noteName.text!), at: 0)
+
+//                self.notes.notesList.insert(noteName.text!, at: 0)
                 let indexPath = NSIndexPath(row: 0, section: 0)
                 self.tableView.insertRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade)
             }
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (action : UIAlertAction!) -> Void in })
-
+        
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
         
@@ -166,16 +193,16 @@ class NotesTableViewController: UITableViewController {
         let indexPath = NSIndexPath(row: notes.notesList.count, section: 0)
         
         self.tableView.reloadRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade)
-//        tableView.beginUpdates()
-//        tableView.reloadRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade) //try other animations
-//        tableView.endUpdates()
+        //        tableView.beginUpdates()
+        //        tableView.reloadRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade) //try other animations
+        //        tableView.endUpdates()
     }
     
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if (editingStyle == .delete) {
-//            // handle delete (by removing the data from your array and updating the tableview)
-//        }
-//    }
+    //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    //        if (editingStyle == .delete) {
+    //            // handle delete (by removing the data from your array and updating the tableview)
+    //        }
+    //    }
     
     
     @IBAction func startNewText(_ sender: UIBarButtonItem) {
@@ -227,4 +254,29 @@ class NotesTableViewController: UITableViewController {
      }
      */
     
+    
+    func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        filteredNotes = [notes].filter({( note : Notes) -> Bool in
+            return note.filteredList.lowercased().contains(searchText.lowercased())
+        })
+        tableView.reloadData()
+    }
+    
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
+    
+}
+
+
+extension NotesTableViewController: UISearchResultsUpdating {
+    // MARK: - UISearchResultsUpdating Delegate
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
 }

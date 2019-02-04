@@ -39,9 +39,18 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="foldersTableView" destination="Uzg-pw-nhc" id="UQl-YC-Kaf"/>
+                        <outlet property="searchDisplayController" destination="Bj3-Fw-KOa" id="BMq-25-zbw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NjZ-kf-B1U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Bj3-Fw-KOa">
+                    <connections>
+                        <outlet property="delegate" destination="4VW-9p-Irv" id="n0S-dU-zR9"/>
+                        <outlet property="searchContentsController" destination="4VW-9p-Irv" id="fgE-W5-2li"/>
+                        <outlet property="searchResultsDataSource" destination="4VW-9p-Irv" id="Gpj-SW-7Bu"/>
+                        <outlet property="searchResultsDelegate" destination="4VW-9p-Irv" id="PYA-vf-yVP"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1210" y="-564"/>
         </scene>
