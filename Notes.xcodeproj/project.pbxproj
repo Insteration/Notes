@@ -14,6 +14,7 @@
 		D9014B712201A8B00072CEF9 /* NotesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9014B702201A8B00072CEF9 /* NotesTableViewController.swift */; };
 		D9014B782201ADAA0072CEF9 /* NotesListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9014B772201ADAA0072CEF9 /* NotesListData.swift */; };
 		D9014B7A2201ED860072CEF9 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9014B792201ED860072CEF9 /* TextViewController.swift */; };
+		D905A5312209A718002677E2 /* TimeIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D905A5302209A718002677E2 /* TimeIndicator.swift */; };
 		D90ACE1F2204555C0066BF0A /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90ACE1E2204555C0066BF0A /* SettingsTableViewController.swift */; };
 		D912B2582204CFF500849070 /* TextSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D912B2562204CFF500849070 /* TextSettings.storyboard */; };
 		D9534CA122089DE6008B1A23 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9534CA022089DE5008B1A23 /* List.swift */; };
@@ -31,6 +32,7 @@
 		D9014B702201A8B00072CEF9 /* NotesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesTableViewController.swift; sourceTree = "<group>"; };
 		D9014B772201ADAA0072CEF9 /* NotesListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesListData.swift; sourceTree = "<group>"; };
 		D9014B792201ED860072CEF9 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		D905A5302209A718002677E2 /* TimeIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIndicator.swift; sourceTree = "<group>"; };
 		D90ACE1E2204555C0066BF0A /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		D912B2572204CFF500849070 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Notes/Views/Base.lproj/TextSettings.storyboard; sourceTree = "<group>"; };
 		D9534CA022089DE5008B1A23 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				D9014B702201A8B00072CEF9 /* NotesTableViewController.swift */,
 				D9014B792201ED860072CEF9 /* TextViewController.swift */,
 				D90ACE1E2204555C0066BF0A /* SettingsTableViewController.swift */,
+				D905A5302209A718002677E2 /* TimeIndicator.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				D9534CA322089DF2008B1A23 /* NotesTheme.swift in Sources */,
 				D9014B782201ADAA0072CEF9 /* NotesListData.swift in Sources */,
 				D9014B5B2201A2CD0072CEF9 /* AppDelegate.swift in Sources */,
+				D905A5312209A718002677E2 /* TimeIndicator.swift in Sources */,
 				D9534CA122089DE6008B1A23 /* List.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +365,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B4FXKBHXYA;
 				INFOPLIST_FILE = "$(SRCROOT)/Notes/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -379,6 +384,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B4FXKBHXYA;
 				INFOPLIST_FILE = "$(SRCROOT)/Notes/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

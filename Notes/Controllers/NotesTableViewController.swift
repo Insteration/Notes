@@ -16,6 +16,7 @@ class NotesTableViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private let cellReuseIdentifier = "cell"
     
+
     @IBOutlet var foldersTableView: UITableView!
     @IBAction func startNewText(_ sender: UIBarButtonItem) {
         notes.numberOfNote = 100
@@ -41,15 +42,18 @@ class NotesTableViewController: UITableViewController {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Notes"
+        searchController.searchBar.barStyle = .black
+        searchController.searchBar.tintColor = UIColor.white
+        searchController.searchBar.delegate = self
+//        let navColor = UIColor(red: 0.175, green: 0.458, blue: 0.831, alpha: 1.0)
+//        searchController.searchBar.barTintColor = navColor
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
     
     fileprivate func createSearchBarScope() {
         searchController.searchBar.scopeButtonTitles = ["All", "Notes"]
-        searchController.searchBar.barStyle = .black
-        searchController.searchBar.tintColor = UIColor.white
-        searchController.searchBar.delegate = self
+
     }
     
     private func alertNil() {
@@ -87,15 +91,22 @@ class NotesTableViewController: UITableViewController {
     fileprivate func teleportToNotesViewController() {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let notesViewController = storyboard.instantiateViewController(withIdentifier: "notesVC") as! TextViewController
-        notesViewController.notes = notes
+//        notesViewController.note = notes
         let navigationController = UINavigationController(rootViewController: notesViewController)
         self.present(navigationController, animated: true, completion: nil)
     }
     
-
+    fileprivate func createViewForFixLine() {
+        let myView = UIView()
+        let navColor = UIColor(red: 0.175, green: 0.458, blue: 0.831, alpha: 1.0)
+        myView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height / 4 - 400)
+        myView.backgroundColor = navColor
+        view.addSubview(myView)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
@@ -104,7 +115,7 @@ class NotesTableViewController: UITableViewController {
         createSearchController()
         setUpToolbar()
         createFoldersTableView()
-        
+        createViewForFixLine()
     }
     
     
@@ -147,9 +158,9 @@ class NotesTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "✏️"
-    }
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return "✏️"
+//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         notes.numberOfNote = indexPath.row
@@ -159,7 +170,7 @@ class NotesTableViewController: UITableViewController {
     private func setUpToolbar() {
         
         var toolBarItems = [UIBarButtonItem]()
-        
+
         let systemButton1 = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
         toolBarItems.append(systemButton1)
         
@@ -171,6 +182,7 @@ class NotesTableViewController: UITableViewController {
         
         self.setToolbarItems(toolBarItems, animated: true)
         self.navigationController?.isToolbarHidden = false
+
     }
     
     @objc func addNewNote(target: UITableViewCell) {

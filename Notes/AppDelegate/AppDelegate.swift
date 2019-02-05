@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         // style the navigation bar
+        
+        
         let navColor = UIColor(red: 0.175, green: 0.458, blue: 0.831, alpha: 1.0)
         UINavigationBar.appearance().barTintColor = navColor
         UINavigationBar.appearance().tintColor = .white

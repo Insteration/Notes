@@ -51,7 +51,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="noteTextView" destination="7Pb-KH-kbw" id="kY0-J0-R5V"/>
+                        <outlet property="textView" destination="7Pb-KH-kbw" id="kY0-J0-R5V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WV7-JU-MHQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

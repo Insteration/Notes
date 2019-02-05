@@ -10,19 +10,26 @@ import UIKit
 
 class TextViewController: UIViewController {
     
-    var notes = Notes()
+//    var note = Notes()
     var notesData = NotesData()
+    var timeView: TimeIndicatorView!
+    
+    var note: Note!
 
-    @IBOutlet weak var noteTextView: UITextView!
+
+    @IBOutlet weak var textView: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.noteTextView.font = .preferredFont(forTextStyle: .body)
-        self.noteTextView.adjustsFontForContentSizeCategory = true
+//        timeView = TimeIndicatorView(date: note.timestamp)
+//        textView.addSubview(timeView)
+        
+        self.textView.font = .preferredFont(forTextStyle: .body)
+        self.textView.adjustsFontForContentSizeCategory = true
         
         let frameTextView = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: self.view.bounds.height / 2)
-        self.noteTextView.frame = frameTextView
+        self.textView.frame = frameTextView
         
         
 
@@ -33,23 +40,23 @@ class TextViewController: UIViewController {
 //        setUpToolbar()
         
         
-        switch notes.numberOfNote {
-        case 0:
-            self.noteTextView.text = notesData.testNote1
-        case 1:
-            self.noteTextView.text = notesData.testNote2
-        case 2:
-            self.noteTextView.text = notesData.testNote3
-        case 100:
-//            self.notes.notesList.insert(noteName.text!, at: 0)
-            self.notes.list.insert(List(name: "New note"), at: 0)
-            
-            self.noteTextView.text = ""
-        default:
-            ()
-        }
+//        switch note.numberOfNote {
+//        case 0:
+//            self.noteTextView.text = notesData.testNote1
+//        case 1:
+//            self.noteTextView.text = notesData.testNote2
+//        case 2:
+//            self.noteTextView.text = notesData.testNote3
+//        case 100:
+////            self.notes.notesList.insert(noteName.text!, at: 0)
+//            self.note.list.insert(List(name: "New note"), at: 0)
+//
+//            self.noteTextView.text = ""
+//        default:
+//            ()
+//        }
         
-        noteTextView.delegate = self
+        textView.delegate = self
         
     }
     
@@ -67,7 +74,7 @@ class TextViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.noteTextView.resignFirstResponder()
+        self.textView.resignFirstResponder()
     }
     
     
@@ -94,12 +101,12 @@ class TextViewController: UIViewController {
         let getKeyboardRect = (userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue    // координаты клавиатуры
         let keyBoardFrame = self.view.convert(getKeyboardRect, to: view.window) // конвертирует в координаты на вьюшке (сделали фрейм исходя из координаты клавиатуры)
         if param.name == UIResponder.keyboardWillHideNotification {
-            self.noteTextView.contentInset = UIEdgeInsets.zero // по углам
+            self.textView.contentInset = UIEdgeInsets.zero // по углам
         } else {
-            self.noteTextView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyBoardFrame.height, right: 0)
-            self.noteTextView.scrollIndicatorInsets = self.noteTextView.contentInset
+            self.textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyBoardFrame.height, right: 0)
+            self.textView.scrollIndicatorInsets = self.textView.contentInset
         }
-        self.noteTextView.scrollRangeToVisible(self.noteTextView.selectedRange)
+        self.textView.scrollRangeToVisible(self.textView.selectedRange)
     }
     
 
