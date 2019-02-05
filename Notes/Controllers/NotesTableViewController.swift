@@ -10,11 +10,12 @@ import UIKit
 
 class NotesTableViewController: UITableViewController {
     
-    //    var note = [Notes]()
-    
-    
+
     var notes = Notes()
     var filteredNotes = [Lists]()
+    
+    
+    
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -32,6 +33,9 @@ class NotesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("Filtered notes is \(filteredNotes)")
+        
         
         searchController.searchBar.scopeButtonTitles = ["All", "Notes"]
         searchController.searchBar.delegate = self
@@ -70,15 +74,15 @@ class NotesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = self.foldersTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
         
-        let myNote: Lists
-        
+        let note: Lists
         if isFiltering() {
-            myNote = filteredNotes[indexPath.row]
+            note = filteredNotes[indexPath.row]
         } else {
-            myNote = self.notes.list[indexPath.row]
+            note = self.notes.list[indexPath.row]
         }
-        //        cell.textLabel?.text = self.notes.notesList[indexPath.row]
-        cell.textLabel?.text = self.notes.list[indexPath.row].name
+        
+        cell.textLabel?.text = note.name
+        cell.detailTextLabel?.text = note.category
         cell.selectionStyle = .gray
         cell.accessoryType = .disclosureIndicator
         
@@ -188,28 +192,39 @@ class NotesTableViewController: UITableViewController {
     }
     
     func searchBarIsEmpty() -> Bool {
-        // Returns true if the text is empty or nil
+        
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         
-        filteredNotes = self.notes.list.filter({( name : Lists) -> Bool in
+//        self.notes.list.insert(Lists(name: noteName.text!), at: 0)
+
+//               cell.textLabel?.text = self.notes.list[indexPath.row].name
+//        self.notes.list.insert(Lists(name: "New note"), at: 0)
+//        self.notes.list.filter(Lists(name: Lists) <#T##isIncluded: (Lists) throws -> Bool##(Lists) throws -> Bool#>)
+        
+        
+        filteredNotes = notes.list.filter({( name : Lists) -> Bool in
             let doesCategoryMatch = (scope == "All") || (name.category == scope)
-            
+
             if searchBarIsEmpty() {
                 return doesCategoryMatch
             } else {
-                return doesCategoryMatch && name.name.lowercased().contains(searchText.lowercased())
+                return doesCategoryMatch && name.self.name.lowercased().contains(searchText.lowercased())
             }
         })
         
+//        filteredNotes = self.notes.list.filter ({( list : Notes) -> Bool in
+//            let doesCategoryMatch = (scope == "All") || (name.category == scope)
 //
-//        filteredNotes = self.notes.list.filter (
-//            {   ( name : Lists) -> Bool in
-//                return name.name.lowercased().contains(searchText.lowercased() )
+//            if searchBarIsEmpty() {
+//                return doesCategoryMatch
+//            } else {
+//                return doesCategoryMatch && name.self.name.lowercased().contains(searchText.lowercased())
+//            }
 //        })
-//
+
         tableView.reloadData()
     }
     

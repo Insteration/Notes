@@ -14,7 +14,10 @@ class Notes {
         Lists(name: "Hamlet"),
         Lists(name: "Shopping list for tomorrow"),
         Lists(name: "My thoughts"),
-        Lists(category: "Other", name: "Other")
+        Lists(category: "Other", name: "Other"),
+        Lists(category: "other", name: "Trash"),
+        Lists(name: "Work"),
+        Lists(name: "Read")
     ]
 //    var filteredList = ""
     var numberOfNote = 0
