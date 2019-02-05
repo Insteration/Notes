@@ -17,16 +17,58 @@ class TextViewController: UIViewController {
     var note: Note!
 
 
-    @IBOutlet weak var textView: UITextView!
+//    @IBOutlet weak var textView: UITextView!
+    
+    var textView: UITextView!
+    var textStorage: SyntaxHighlightTextStorage!
+    
+    func createTextView() {
+        // 1
+        let attrs = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body)]
+        let attrString = NSAttributedString(string: note.contents, attributes: attrs)
+        textStorage = SyntaxHighlightTextStorage()
+        textStorage.append(attrString)
+        
+        let newTextViewRect = view.bounds
+        
+        // 2
+        let layoutManager = NSLayoutManager()
+        
+        // 3
+        let containerSize = CGSize(width: newTextViewRect.width,
+                                   height: .greatestFiniteMagnitude)
+        let container = NSTextContainer(size: containerSize)
+        container.widthTracksTextView = true
+        layoutManager.addTextContainer(container)
+        textStorage.addLayoutManager(layoutManager)
+        
+        // 4
+        textView = UITextView(frame: newTextViewRect, textContainer: container)
+        textView.delegate = self
+        view.addSubview(textView)
+        
+        // 5
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            textView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            textView.topAnchor.constraint(equalTo: view.topAnchor),
+            textView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+    }
+    
+    override func viewDidLayoutSubviews() {
+        textStorage.update()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        createTextView()
 //        timeView = TimeIndicatorView(date: note.timestamp)
 //        textView.addSubview(timeView)
         
-        self.textView.font = .preferredFont(forTextStyle: .body)
-        self.textView.adjustsFontForContentSizeCategory = true
+//        self.textView.font = .preferredFont(forTextStyle: .body)
+//        self.textView.adjustsFontForContentSizeCategory = true
         
         let frameTextView = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: self.view.bounds.height / 2)
         self.textView.frame = frameTextView
@@ -64,14 +106,14 @@ class TextViewController: UIViewController {
     @IBAction func showButton(_ sender: UIBarButtonItem) {
 
     }
-    @IBAction func backToNotesListButton(_ sender: UIBarButtonItem) {
+//    @IBAction func backToNotesListButton(_ sender: UIBarButtonItem) {
 //        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 //        let notesViewController = storyboard.instantiateViewController(withIdentifier: "mainVC") as! NotesTableViewController
 //        notesViewController.notes = notes
 ////        let navigationController = UITableViewController(rootViewController: notesViewController)
 //        self.present(notesViewController, animated: true, completion: nil)
-        dismiss(animated: true, completion: nil)
-    }
+//        dismiss(animated: true, completion: nil)
+//    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.textView.resignFirstResponder()

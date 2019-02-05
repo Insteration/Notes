@@ -10,6 +10,10 @@ import UIKit
 
 class NotesTableViewController: UITableViewController {
     
+    enum Segue {
+        static let noteSelected =  "CellSelected"
+        static let newNote =  "AddNewNote"
+    }
     
     var notes = Notes()
     var filteredNotes = [List]()
@@ -19,8 +23,8 @@ class NotesTableViewController: UITableViewController {
 
     @IBOutlet var foldersTableView: UITableView!
     @IBAction func startNewText(_ sender: UIBarButtonItem) {
-        notes.numberOfNote = 100
-        teleportToNotesViewController()
+//        notes.numberOfNote = 100
+//        teleportToNotesViewController()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -163,8 +167,8 @@ class NotesTableViewController: UITableViewController {
 //    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        notes.numberOfNote = indexPath.row
-        teleportToNotesViewController()
+//        notes.numberOfNote = indexPath.row
+//        teleportToNotesViewController()
     }
     
     private func setUpToolbar() {
@@ -231,6 +235,23 @@ class NotesTableViewController: UITableViewController {
     func isFiltering() -> Bool {
         let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
         return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
+        guard let editorVC = segue.destination as? TextViewController else {
+            return
+        }
+        
+        if Segue.noteSelected == segue.identifier {
+            if let path = tableView.indexPathForSelectedRow {
+                editorVC.note = self.notes.notes[path.row]
+            }
+            
+        } else if Segue.newNote == segue.identifier {
+            editorVC.note = Note(text: " ")
+            self.notes.notes.append(editorVC.note)
+        }
     }
     
 }
