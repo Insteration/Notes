@@ -23,9 +23,12 @@ class NotesTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.tableView.reloadData()
+        // whenever this view controller appears, reload the table. This allows it to reflect any changes
+        // made whilst editing notes
+        navigationController?.navigationBar.barStyle = .default
     }
-    
     
     fileprivate func createFoldersTableView() {
         self.foldersTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
@@ -58,14 +61,11 @@ class NotesTableViewController: UITableViewController {
         
         
         let alertController = UIAlertController(title: "Add new note", message: "", preferredStyle: .alert)
-        
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Enter note name"
         }
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
-            
             let noteName = alertController.textFields![0] as UITextField
-            
             if noteName.text == "" {
                 self.alertNil()
             } else {
@@ -77,12 +77,9 @@ class NotesTableViewController: UITableViewController {
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (action : UIAlertAction!) -> Void in })
-        
         alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
-        
         self.present(alertController, animated: true, completion: nil)
-        
     }
     
     fileprivate func teleportToNotesViewController() {
@@ -93,8 +90,13 @@ class NotesTableViewController: UITableViewController {
         self.present(navigationController, animated: true, completion: nil)
     }
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 44.0
         
         createSearchBarScope()
         createSearchController()
@@ -123,8 +125,20 @@ class NotesTableViewController: UITableViewController {
         } else {
             note = self.notes.list[indexPath.row]
         }
-        cell.textLabel?.text = note.name
-        cell.detailTextLabel?.text = note.category
+        
+        let font = UIFont.preferredFont(forTextStyle: .headline)
+        let textColor = UIColor(displayP3Red: 0.175, green: 0.458, blue: 0.831, alpha: 1)
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: textColor,
+            .font: font,
+            .textEffect: NSAttributedString.TextEffectStyle.letterpressStyle]
+        
+        let attributedString = NSAttributedString(string: note.name, attributes: attributes)
+        cell.textLabel?.attributedText = attributedString
+        
+//        cell.textLabel?.text = note.name
+//        cell.detailTextLabel?.text = note.category
+        
         cell.selectionStyle = .gray
         cell.accessoryType = .disclosureIndicator
         
