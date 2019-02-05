@@ -12,7 +12,7 @@ class NotesTableViewController: UITableViewController {
     
     
     var notes = Notes()
-    var filteredNotes = [Lists]()
+    var filteredNotes = [List]()
     private let searchController = UISearchController(searchResultsController: nil)
     private let cellReuseIdentifier = "cell"
     
@@ -27,7 +27,7 @@ class NotesTableViewController: UITableViewController {
         self.tableView.reloadData()
         // whenever this view controller appears, reload the table. This allows it to reflect any changes
         // made whilst editing notes
-        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.barStyle = .black
     }
     
     fileprivate func createFoldersTableView() {
@@ -47,6 +47,8 @@ class NotesTableViewController: UITableViewController {
     
     fileprivate func createSearchBarScope() {
         searchController.searchBar.scopeButtonTitles = ["All", "Notes"]
+        searchController.searchBar.barStyle = .black
+        searchController.searchBar.tintColor = UIColor.white
         searchController.searchBar.delegate = self
     }
     
@@ -69,7 +71,7 @@ class NotesTableViewController: UITableViewController {
             if noteName.text == "" {
                 self.alertNil()
             } else {
-                self.notes.list.insert(Lists(name: noteName.text!), at: 0)
+                self.notes.list.insert(List(name: noteName.text!), at: 0)
                 
                 let indexPath = NSIndexPath(row: 0, section: 0)
                 self.tableView.insertRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade)
@@ -119,7 +121,7 @@ class NotesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = self.foldersTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
-        let note: Lists
+        let note: List
         if isFiltering() {
             note = filteredNotes[indexPath.row]
         } else {
@@ -146,7 +148,7 @@ class NotesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Notes"
+        return "✏️"
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -201,7 +203,7 @@ class NotesTableViewController: UITableViewController {
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredNotes = notes.list.filter({( name : Lists) -> Bool in
+        filteredNotes = notes.list.filter({( name : List) -> Bool in
             let doesCategoryMatch = (scope == "All") || (name.category == scope)
             
             if searchBarIsEmpty() {

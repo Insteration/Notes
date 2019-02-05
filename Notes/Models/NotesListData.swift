@@ -11,13 +11,13 @@ import Foundation
 
 class Notes {
     var list = [
-        Lists(name: "Hamlet"),
-        Lists(name: "Shopping list for tomorrow"),
-        Lists(name: "My thoughts"),
-        Lists(category: "Other", name: "Other"),
-        Lists(category: "other", name: "Trash"),
-        Lists(name: "Work"),
-        Lists(name: "Read")
+        List(name: "Hamlet"),
+        List(name: "Shopping list for tomorrow"),
+        List(name: "My thoughts"),
+        List(category: "Other", name: "Other"),
+        List(category: "other", name: "Trash"),
+        List(name: "Work"),
+        List(name: "Read")
     ]
 //    var filteredList = ""
     var numberOfNote = 0

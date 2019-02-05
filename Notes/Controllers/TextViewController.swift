@@ -13,9 +13,13 @@ class TextViewController: UIViewController {
     var notes = Notes()
     var notesData = NotesData()
 
-    
+    @IBOutlet weak var noteTextView: UITextView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.noteTextView.font = .preferredFont(forTextStyle: .body)
+        self.noteTextView.adjustsFontForContentSizeCategory = true
         
         let frameTextView = CGRect(x: 0, y: 0, width: self.view.bounds.width - 40, height: self.view.bounds.height / 2)
         self.noteTextView.frame = frameTextView
@@ -38,7 +42,7 @@ class TextViewController: UIViewController {
             self.noteTextView.text = notesData.testNote3
         case 100:
 //            self.notes.notesList.insert(noteName.text!, at: 0)
-            self.notes.list.insert(Lists(name: "New note"), at: 0)
+            self.notes.list.insert(List(name: "New note"), at: 0)
             
             self.noteTextView.text = ""
         default:
@@ -49,7 +53,6 @@ class TextViewController: UIViewController {
         
     }
     
-    @IBOutlet weak var noteTextView: UITextView!
     
     @IBAction func showButton(_ sender: UIBarButtonItem) {
 
