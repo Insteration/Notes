@@ -10,97 +10,51 @@ import UIKit
 
 class NotesTableViewController: UITableViewController {
     
-
+    
     var notes = Notes()
     var filteredNotes = [Lists]()
-    
-    
-    
-    
-    let searchController = UISearchController(searchResultsController: nil)
-    
+    private let searchController = UISearchController(searchResultsController: nil)
     private let cellReuseIdentifier = "cell"
     
-    
     @IBOutlet var foldersTableView: UITableView!
-    
-    @IBOutlet weak var searchResult: UIView!
+    @IBAction func startNewText(_ sender: UIBarButtonItem) {
+        notes.numberOfNote = 100
+        teleportToNotesViewController()
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        print("Filtered notes is \(filteredNotes)")
-        
-        
-        searchController.searchBar.scopeButtonTitles = ["All", "Notes"]
-        searchController.searchBar.delegate = self
-        
+    fileprivate func createFoldersTableView() {
+        self.foldersTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        self.foldersTableView.separatorStyle = .none
+        self.foldersTableView.delegate = self
+        self.foldersTableView.dataSource = self
+    }
+    
+    fileprivate func createSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Notes"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-        
-        
-        setUpToolbar()
-        self.foldersTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
-        
-        foldersTableView.separatorStyle = .none
-        foldersTableView.delegate = self
-        foldersTableView.dataSource = self
-        
     }
     
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+    fileprivate func createSearchBarScope() {
+        searchController.searchBar.scopeButtonTitles = ["All", "Notes"]
+        searchController.searchBar.delegate = self
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering() {
-            return filteredNotes.count
-        }
-        
-        return self.notes.list.count
-    }
-    
-    
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = self.foldersTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
-        
-        let note: Lists
-        if isFiltering() {
-            note = filteredNotes[indexPath.row]
-        } else {
-            note = self.notes.list[indexPath.row]
-        }
-        
-        cell.textLabel?.text = note.name
-        cell.detailTextLabel?.text = note.category
-        cell.selectionStyle = .gray
-        cell.accessoryType = .disclosureIndicator
-        
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Notes"
-    }
-    
-    func alertNil() {
+    private func alertNil() {
         let alert = UIAlertController(title: "Something went wrong", message: "The note name can not be empty", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
         }))
         self.present(alert, animated: true, completion: nil)
     }
     
-    fileprivate func alertController() {
+    private func alertController() {
         
         
         let alertController = UIAlertController(title: "Add new note", message: "", preferredStyle: .alert)
@@ -139,11 +93,52 @@ class NotesTableViewController: UITableViewController {
         self.present(navigationController, animated: true, completion: nil)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        createSearchBarScope()
+        createSearchController()
+        setUpToolbar()
+        createFoldersTableView()
+        
+    }
+    
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering() {
+            return filteredNotes.count
+        }
+        return self.notes.list.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = self.foldersTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath)
+        let note: Lists
+        if isFiltering() {
+            note = filteredNotes[indexPath.row]
+        } else {
+            note = self.notes.list[indexPath.row]
+        }
+        cell.textLabel?.text = note.name
+        cell.detailTextLabel?.text = note.category
+        cell.selectionStyle = .gray
+        cell.accessoryType = .disclosureIndicator
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Notes"
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         notes.numberOfNote = indexPath.row
         teleportToNotesViewController()
     }
-    
     
     private func setUpToolbar() {
         
@@ -185,29 +180,16 @@ class NotesTableViewController: UITableViewController {
         self.tableView.reloadRows(at: [indexPath as IndexPath], with: UITableView.RowAnimation.fade)
     }
     
-    
-    @IBAction func startNewText(_ sender: UIBarButtonItem) {
-        notes.numberOfNote = 100
-        teleportToNotesViewController()
-    }
-    
+
     func searchBarIsEmpty() -> Bool {
         
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        
-//        self.notes.list.insert(Lists(name: noteName.text!), at: 0)
-
-//               cell.textLabel?.text = self.notes.list[indexPath.row].name
-//        self.notes.list.insert(Lists(name: "New note"), at: 0)
-//        self.notes.list.filter(Lists(name: Lists) <#T##isIncluded: (Lists) throws -> Bool##(Lists) throws -> Bool#>)
-        
-        
         filteredNotes = notes.list.filter({( name : Lists) -> Bool in
             let doesCategoryMatch = (scope == "All") || (name.category == scope)
-
+            
             if searchBarIsEmpty() {
                 return doesCategoryMatch
             } else {
@@ -215,23 +197,12 @@ class NotesTableViewController: UITableViewController {
             }
         })
         
-//        filteredNotes = self.notes.list.filter ({( list : Notes) -> Bool in
-//            let doesCategoryMatch = (scope == "All") || (name.category == scope)
-//
-//            if searchBarIsEmpty() {
-//                return doesCategoryMatch
-//            } else {
-//                return doesCategoryMatch && name.self.name.lowercased().contains(searchText.lowercased())
-//            }
-//        })
-
         tableView.reloadData()
     }
     
     func isFiltering() -> Bool {
         let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
         return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
-//        return searchController.isActive && !searchBarIsEmpty()
     }
     
 }
@@ -246,7 +217,6 @@ extension NotesTableViewController: UISearchResultsUpdating {
 }
 
 extension NotesTableViewController: UISearchBarDelegate {
-    
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
