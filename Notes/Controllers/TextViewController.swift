@@ -98,7 +98,6 @@ class TextViewController: UIViewController {
 //            ()
 //        }
         
-        textView.delegate = self
         
     }
     
@@ -155,7 +154,8 @@ class TextViewController: UIViewController {
 }
 
 extension TextViewController: UITextViewDelegate {
-    public func textViewDidBeginEditing(_ textView: UITextView) {
-        print("Text view did begin editing")
+    func textViewDidEndEditing(_ textView: UITextView) {
+        note.contents = textView.text
+//        print(note.name)
     }
 }
